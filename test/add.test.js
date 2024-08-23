@@ -8,3 +8,4 @@ describe('add(numbers)', () => {
   });
 
 });
+module.exports = add;
