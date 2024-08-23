@@ -27,6 +27,28 @@ function add(numbers) {
         }
     });
 
+    // Throw an exception if there are negative numbers
+    if (negatives.length > 0) {
+        throw new Error(`Negative numbers not allowed: ${negatives.join(", ")}`);
+    }
+
+    return sum;
+}
+
+function calculate() {
+    const input = document.getElementById("numbersInput").value;
+    const resultField = document.getElementById("result");
+    const errorField = document.getElementById("error");
+
+    try {
+        const result = add(input);
+        resultField.textContent = "Sum: " + result;
+        errorField.textContent = "";
+    } catch (error) {
+        resultField.textContent = "";
+        errorField.textContent = error.message;
+    }
 }
 
 module.exports = add;
+
