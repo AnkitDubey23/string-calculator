@@ -1,16 +1,32 @@
 function add(numbers) {
-    if (numbers === "") {
-        return 0;
+    if (numbers === undefined || numbers === null || numbers === "") return 0;
+
+    const delimiterRegex = /^\/\/(.+)\n/;
+    // Default delimiter (comma and newline)
+    let delimiter = /,|\n/;
+    let numberList = numbers;
+
+    // Check if there's a custom delimiter
+    const customDelimiterMatch = numbers.match(delimiterRegex);
+    if (customDelimiterMatch) {
+        delimiter = new RegExp(customDelimiterMatch[1]);
+        numberList = numbers.split("\n").slice(1).join("\n");
     }
-    //initialize sum here
+
+    const numArray = numberList.split(delimiter);
     let sum = 0;
-    
-    let numArray = numbers.split(",");
+    let negatives = [];
+
     numArray.forEach(num => {
-        sum += parseInt(num, 10);
+        const n = parseInt(num, 10);
+        if (isNaN(n)) return;
+        if (n < 0) {
+            negatives.push(n);
+        } else {
+            sum += n;
+        }
     });
 
-    return sum;
 }
 
 module.exports = add;
